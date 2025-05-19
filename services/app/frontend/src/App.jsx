@@ -34,9 +34,11 @@ function App() {
             .then((res) => res.json())
             .then((data) => setData(JSON.stringify(data)));
         // mock app server error
-//         const xhr = new XMLHttpRequest();
-//         xhr.open('post', '/test');
-//         xhr.send();    
+        /*
+         const xhr = new XMLHttpRequest();
+                 xhr.open('post', '/test');
+                 xhr.send();
+         */
         // mock apisix error
         const apisix = new XMLHttpRequest();
         apisix.open('post', '/test-apisix-404');
