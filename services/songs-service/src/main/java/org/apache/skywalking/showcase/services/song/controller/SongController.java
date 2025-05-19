@@ -30,6 +30,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.jms.JMSException;
+
 @Slf4j
 @RestController
 @RequiredArgsConstructor
@@ -44,7 +46,7 @@ public class SongController {
                                                                  .build();
 
     @GetMapping
-    public List<Song> songs() {
+    public List<Song> songs() throws JMSException {
         log.info("Listing all songs");
         List<Song> songs = songsRepo.findAll();
         songMessageSender.sendMsg(songs.size());

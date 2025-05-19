@@ -20,12 +20,8 @@ package org.apache.skywalking.showcase.services.song.mq;
 import java.util.Date;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
-import javax.jms.Connection;
-import javax.jms.ConnectionFactory;
-import javax.jms.Destination;
-import javax.jms.MessageProducer;
-import javax.jms.Session;
-import javax.jms.TextMessage;
+import javax.jms.*;
+
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -44,17 +40,13 @@ public class SongMessageSender {
 
     private Connection connection;
 
-    public void sendMsg(int songsSize) {
-        try {
-            if (this.session != null && this.messageProducer != null) {
-                TextMessage message = session.createTextMessage("ping at " + new Date() + ": " + songsSize);
-                messageProducer.send(message);
-                session.commit();
-            } else {
-                initMQSource();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+    public void sendMsg(int songsSize) throws JMSException {
+        if (this.session != null && this.messageProducer != null) {
+            TextMessage message = session.createTextMessage("ping at " + new Date() + ": " + songsSize);
+            messageProducer.send(message);
+            session.commit();
+        } else {
+            initMQSource();
         }
     }
 
