@@ -26,7 +26,6 @@ env:
 
 jobs:
   build:
-    if: github.repository == 'apache/skywalking-showcase'
     runs-on: ubuntu-latest
     permissions:
       contents: read
